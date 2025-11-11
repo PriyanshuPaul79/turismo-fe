@@ -1,0 +1,92 @@
+import React from 'react';
+import Icon from '../../../components/AppIcon';
+import Image from '../../../components/AppImage';
+import Button from '../../../components/ui/Button';
+
+const QuickAccessCard = ({ title, items, type, onViewAll, onItemClick }) => {
+  const getIcon = () => {
+    switch (type) {
+      case 'destinations': return 'MapPin';
+      case 'hotels': return 'Building';
+      case 'itineraries': return 'Route';
+      default: return 'Heart';
+    }
+  };
+
+  const getEmptyMessage = () => {
+    switch (type) {
+      case 'destinations': return 'Start exploring destinations to save your favorites';
+      case 'hotels': return 'Save hotels you love for future trips';
+      case 'itineraries': return 'Create your first travel itinerary';
+      default: return 'No saved items yet';
+    }
+  };
+
+  return (
+    <div className="bg-card rounded-lg p-6 shadow-subtle">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+            <Icon name={getIcon()} size={20} className="text-primary" />
+          </div>
+          <div>
+            <h3 className="font-headline font-semibold text-lg">{title}</h3>
+            <p className="text-muted-foreground text-sm">{items?.length} saved</p>
+          </div>
+        </div>
+        {items?.length > 0 && (
+          <Button variant="ghost" size="sm" onClick={onViewAll}>
+            View All
+            <Icon name="ArrowRight" size={16} className="ml-1" />
+          </Button>
+        )}
+      </div>
+      {items?.length === 0 ? (
+        <div className="text-center py-8">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-3">
+            <Icon name={getIcon()} size={24} className="text-muted-foreground" />
+          </div>
+          <p className="text-muted-foreground text-sm">{getEmptyMessage()}</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {items?.slice(0, 3)?.map((item) => (
+            <div
+              key={item?.id}
+              onClick={() => onItemClick(item)}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+            >
+              <div className="relative">
+                <Image
+                  src={item?.image}
+                  alt={item?.imageAlt}
+                  className="w-12 h-12 rounded-lg object-cover"
+                />
+                {item?.isNew && (
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-conversion rounded-full border-2 border-white"></div>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-medium truncate">{item?.name}</h4>
+                <p className="text-muted-foreground text-sm truncate">
+                  {item?.location || item?.description}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                {item?.rating && (
+                  <div className="flex items-center gap-1">
+                    <Icon name="Star" size={14} className="text-warning fill-current" />
+                    <span className="text-xs">{item?.rating}</span>
+                  </div>
+                )}
+                <Icon name="ChevronRight" size={16} />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default QuickAccessCard;

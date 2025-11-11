@@ -1,9 +1,165 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  darkMode: ["class"],
+  content: [
+    './pages/**/*.{js,jsx}',
+    './components/**/*.{js,jsx}',
+    './app/**/*.{js,jsx}',
+    './src/**/*.{js,jsx}',
+  ],
+  prefix: "",
   theme: {
-    extend: {},
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        border: "var(--color-border)", /* light-gray */
+        input: "var(--color-input)", /* white */
+        ring: "var(--color-ring)", /* deep-ocean-blue */
+        background: "var(--color-background)", /* warm-canvas */
+        foreground: "var(--color-foreground)", /* charcoal-navy */
+        primary: {
+          DEFAULT: "var(--color-primary)", /* deep-ocean-blue */
+          foreground: "var(--color-primary-foreground)", /* white */
+        },
+        secondary: {
+          DEFAULT: "var(--color-secondary)", /* warm-amber */
+          foreground: "var(--color-secondary-foreground)", /* charcoal-navy */
+        },
+        destructive: {
+          DEFAULT: "var(--color-destructive)", /* helpful-concern */
+          foreground: "var(--color-destructive-foreground)", /* white */
+        },
+        muted: {
+          DEFAULT: "var(--color-muted)", /* subtle-elevation */
+          foreground: "var(--color-muted-foreground)", /* warm-gray */
+        },
+        accent: {
+          DEFAULT: "var(--color-accent)", /* cultural-vibrancy */
+          foreground: "var(--color-accent-foreground)", /* white */
+        },
+        popover: {
+          DEFAULT: "var(--color-popover)", /* white */
+          foreground: "var(--color-popover-foreground)", /* charcoal-navy */
+        },
+        card: {
+          DEFAULT: "var(--color-card)", /* subtle-elevation */
+          foreground: "var(--color-card-foreground)", /* charcoal-navy */
+        },
+        success: {
+          DEFAULT: "var(--color-success)", /* forest-green */
+          foreground: "var(--color-success-foreground)", /* white */
+        },
+        warning: {
+          DEFAULT: "var(--color-warning)", /* gentle-urgency */
+          foreground: "var(--color-warning-foreground)", /* white */
+        },
+        error: {
+          DEFAULT: "var(--color-error)", /* helpful-concern */
+          foreground: "var(--color-error-foreground)", /* white */
+        },
+        conversion: {
+          DEFAULT: "var(--color-conversion)", /* vibrant-coral */
+          foreground: "var(--color-conversion-foreground)", /* white */
+        },
+        trust: {
+          DEFAULT: "var(--color-trust)", /* forest-green */
+          foreground: "var(--color-trust-foreground)", /* white */
+        },
+        cta: {
+          DEFAULT: "var(--color-cta)", /* confident-blue */
+          foreground: "var(--color-cta-foreground)", /* white */
+        },
+      },
+      fontFamily: {
+        headline: ["var(--font-headline)"],
+        body: ["var(--font-body)"],
+        cta: ["var(--font-cta)"],
+        accent: ["var(--font-accent)"],
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1' }],
+        '6xl': ['3.75rem', { lineHeight: '1' }],
+      },
+      spacing: {
+        'xs': 'var(--spacing-xs)', /* 8px */
+        'sm': 'var(--spacing-sm)', /* 12px */
+        'md': 'var(--spacing-md)', /* 20px */
+        'lg': 'var(--spacing-lg)', /* 32px */
+        'xl': 'var(--spacing-xl)', /* 52px */
+      },
+      borderRadius: {
+        'sm': 'var(--radius-sm)', /* 4px */
+        'md': 'var(--radius-md)', /* 8px */
+        'lg': 'var(--radius-lg)', /* 12px */
+        'xl': 'var(--radius-xl)', /* 16px */
+      },
+      boxShadow: {
+        'subtle': 'var(--shadow-subtle)',
+        'floating': 'var(--shadow-floating)',
+        'depth': 'var(--shadow-depth)',
+      },
+      transitionDuration: {
+        'fast': '300ms',
+        'smooth': '400ms',
+        'slow': '600ms',
+      },
+      transitionTimingFunction: {
+        'ease-out-smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 6s ease-in-out infinite",
+        "pulse-soft": "pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "slide-up": "slide-up 0.6s ease-out",
+        "fade-in": "fade-in 0.4s ease-out",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.8" },
+        },
+        "slide-up": {
+          from: { opacity: "0", transform: "translateY(30px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+      },
+      backdropBlur: {
+        'soft': '10px',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss-animate"),
+  ],
 }
-
