@@ -14,8 +14,21 @@ export default defineConfig({
     }
   },
   server: {
-    port: 3000,
+    port: 5173,
     open: true
+  },
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['framer-motion', 'lucide-react', 'recharts'],
+          'redux-vendor': ['@reduxjs/toolkit', 'redux']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
   }
 })
 
