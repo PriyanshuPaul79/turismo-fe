@@ -3,7 +3,7 @@ import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
 import Select from '../../../components/ui/Select';
-import { Checkbox } from '../../../components/ui/Checkbox';
+import { Checkbox } from 'components/ui/CheckBox';
 
 const PreferencesCard = ({ preferences, onUpdatePreferences }) => {
   const [isEditing, setIsEditing] = useState(false);
