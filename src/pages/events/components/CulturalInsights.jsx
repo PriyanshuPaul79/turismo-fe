@@ -1,150 +1,101 @@
 import React from 'react';
 import Image from '../../../components/AppImage';
 import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
 
 const CulturalInsights = ({ insights, onReadMore, className = '' }) => {
   return (
     <div className={`bg-card rounded-xl shadow-subtle p-6 ${className}`}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-headline font-semibold text-foreground flex items-center">
-          <Icon name="BookOpen" size={24} className="mr-3 text-accent" />
+        <h3 className="text-lg font-headline font-semibold text-foreground">
           Cultural Insights
         </h3>
-        <Button
-          variant="ghost"
-          size="sm"
-          iconName="ExternalLink"
-          iconPosition="right"
+        <button
+          onClick={() => onReadMore && onReadMore({ viewAll: true })}
+          className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
         >
           View All
-        </Button>
+        </button>
       </div>
       <div className="space-y-6">
         {insights?.map((insight) => (
           <div key={insight?.id} className="border-b border-border last:border-b-0 pb-6 last:pb-0">
-            <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex flex-col gap-4">
               {/* Insight Image */}
-              <div className="lg:w-32 lg:h-24 w-full h-48 flex-shrink-0">
+              <div className="w-full h-40 flex-shrink-0 overflow-hidden rounded-lg">
                 <Image
                   src={insight?.image}
                   alt={insight?.imageAlt}
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
               {/* Insight Content */}
               <div className="flex-1">
-                <div className="flex items-center mb-2">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium mr-3 ${
+                <div className="flex items-center gap-3 mb-2">
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
                     insight?.type === 'Tradition' ? 'bg-accent/10 text-accent' :
                     insight?.type === 'Etiquette' ? 'bg-secondary/10 text-secondary' :
-                    insight?.type === 'History'? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'
+                    insight?.type === 'History' ? 'bg-primary/10 text-primary' : 
+                    'bg-muted text-muted-foreground'
                   }`}>
                     {insight?.type}
                   </span>
                   <div className="flex items-center text-xs text-muted-foreground">
-                    <Icon name="Clock" size={12} className="mr-1" />
+                    <Icon name="Clock" size={12} className="mr-1.5" />
                     <span>{insight?.readTime} min read</span>
                   </div>
                 </div>
 
-                <h4 className="text-lg font-headline font-semibold text-foreground mb-2">
+                <h4 className="text-base font-headline font-semibold text-foreground mb-2 leading-tight">
                   {insight?.title}
                 </h4>
 
-                <p className="text-muted-foreground text-sm mb-3 line-clamp-3">
+                <p className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-relaxed">
                   {insight?.description}
                 </p>
 
                 {/* Key Points */}
                 {insight?.keyPoints && insight?.keyPoints?.length > 0 && (
-                  <div className="mb-3">
-                    <div className="flex flex-wrap gap-2">
+                  <div className="mb-4">
+                    <div className="space-y-1.5">
                       {insight?.keyPoints?.slice(0, 3)?.map((point, index) => (
-                        <span
+                        <div
                           key={index}
-                          className="inline-flex items-center px-2 py-1 bg-muted rounded-md text-xs text-muted-foreground"
+                          className="flex items-center text-xs text-muted-foreground"
                         >
-                          <Icon name="Check" size={12} className="mr-1" />
-                          {point}
-                        </span>
+                          <Icon name="Check" size={14} className="mr-2 text-success flex-shrink-0" />
+                          <span>{point}</span>
+                        </div>
                       ))}
                       {insight?.keyPoints?.length > 3 && (
-                        <span className="inline-flex items-center px-2 py-1 bg-muted rounded-md text-xs text-muted-foreground">
-                          +{insight?.keyPoints?.length - 3} more
-                        </span>
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <span className="ml-6">+{insight?.keyPoints?.length - 3} more</span>
+                        </div>
                       )}
                     </div>
                   </div>
                 )}
 
-                {/* Author and Actions */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Image
-                      src={insight?.author?.avatar}
-                      alt={insight?.author?.avatarAlt}
-                      className="w-6 h-6 rounded-full mr-2"
-                    />
-                    <div>
-                      <span className="text-xs font-medium text-foreground">{insight?.author?.name}</span>
-                      <span className="text-xs text-muted-foreground ml-2">{insight?.author?.title}</span>
+                {/* Author */}
+                <div className="flex items-center gap-2 pt-2">
+                  <Image
+                    src={insight?.author?.avatar}
+                    alt={insight?.author?.avatarAlt}
+                    className="w-7 h-7 rounded-full object-cover flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-medium text-foreground truncate">
+                      {insight?.author?.name}
+                    </div>
+                    <div className="text-xs text-muted-foreground truncate">
+                      {insight?.author?.title}
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => onReadMore(insight)}
-                    iconName="ArrowRight"
-                    iconPosition="right"
-                  >
-                    Read More
-                  </Button>
                 </div>
               </div>
             </div>
           </div>
         ))}
-      </div>
-      {/* Cultural Tips Section */}
-      <div className="mt-8 pt-6 border-t border-border">
-        <h4 className="text-lg font-headline font-semibold text-foreground mb-4 flex items-center">
-          <Icon name="Lightbulb" size={20} className="mr-2 text-warning" />
-          Quick Cultural Tips
-        </h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[
-            {
-              icon: 'HandHeart',
-              title: 'Respectful Greetings',
-              tip: 'Learn basic greetings in the local language to show respect and connect with locals.'
-            },
-            {
-              icon: 'Camera',
-              title: 'Photography Etiquette',
-              tip: 'Always ask permission before photographing people or religious sites.'
-            },
-            {
-              icon: 'Gift',
-              title: 'Gift Giving',
-              tip: 'Research local customs around gift-giving to avoid cultural misunderstandings.'
-            },
-            {
-              icon: 'Utensils',
-              title: 'Dining Customs',
-              tip: 'Observe local dining etiquette and try traditional foods with an open mind.'
-            }
-          ]?.map((tip, index) => (
-            <div key={index} className="flex items-start space-x-3 p-3 bg-muted rounded-lg">
-              <Icon name={tip?.icon} size={20} className="text-accent flex-shrink-0 mt-0.5" />
-              <div>
-                <h5 className="text-sm font-medium text-foreground mb-1">{tip?.title}</h5>
-                <p className="text-xs text-muted-foreground">{tip?.tip}</p>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

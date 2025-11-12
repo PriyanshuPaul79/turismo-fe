@@ -1,7 +1,6 @@
 import React from 'react';
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
-import Button from '../../../components/ui/Button';
 
 const QuickAccessCard = ({ title, items, type, onViewAll, onItemClick }) => {
   const getIcon = () => {
@@ -26,19 +25,17 @@ const QuickAccessCard = ({ title, items, type, onViewAll, onItemClick }) => {
     <div className="bg-card rounded-lg p-6 shadow-subtle">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-            <Icon name={getIcon()} size={20} className="text-primary" />
-          </div>
-          <div>
-            <h3 className="font-headline font-semibold text-lg">{title}</h3>
-            <p className="text-muted-foreground text-sm">{items?.length} saved</p>
-          </div>
+          <Icon name={getIcon()} size={20} className="text-primary" />
+          <h3 className="font-headline font-semibold text-base text-foreground">{title}</h3>
         </div>
         {items?.length > 0 && (
-          <Button variant="ghost" size="sm" onClick={onViewAll}>
+          <button
+            onClick={onViewAll}
+            className="text-sm text-primary hover:text-primary/80 font-medium transition-colors flex items-center gap-1"
+          >
             View All
-            <Icon name="ArrowRight" size={16} className="ml-1" />
-          </Button>
+            <Icon name="ArrowRight" size={14} />
+          </button>
         )}
       </div>
       {items?.length === 0 ? (
@@ -50,37 +47,37 @@ const QuickAccessCard = ({ title, items, type, onViewAll, onItemClick }) => {
         </div>
       ) : (
         <div className="space-y-3">
+          <p className="text-xs text-muted-foreground mb-3">{items?.length} saved</p>
           {items?.slice(0, 3)?.map((item) => (
             <div
               key={item?.id}
               onClick={() => onItemClick(item)}
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors group"
             >
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <Image
                   src={item?.image}
                   alt={item?.imageAlt}
-                  className="w-12 h-12 rounded-lg object-cover"
+                  className="w-14 h-14 rounded-lg object-cover"
                 />
                 {item?.isNew && (
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-conversion rounded-full border-2 border-white"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-conversion rounded-full border-2 border-white"></div>
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium truncate">{item?.name}</h4>
-                <p className="text-muted-foreground text-sm truncate">
+                <h4 className="font-medium text-sm text-foreground truncate mb-0.5">
+                  {item?.name}
+                </h4>
+                <p className="text-xs text-muted-foreground truncate">
                   {item?.location || item?.description}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                {item?.rating && (
-                  <div className="flex items-center gap-1">
-                    <Icon name="Star" size={14} className="text-warning fill-current" />
-                    <span className="text-xs">{item?.rating}</span>
-                  </div>
-                )}
-                <Icon name="ChevronRight" size={16} />
-              </div>
+              {item?.rating && (
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <Icon name="Star" size={12} className="text-warning fill-current" />
+                  <span className="text-xs font-medium text-foreground">{item?.rating}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>

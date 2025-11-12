@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/ui/Header';
-import WelcomeSection from './components/WelcomeSection';
+import WelcomeSection from './components/WelcomeSection.jsx';
 import QuickAccessCard from './components/QuickAccessCard';
 import UpcomingTripsCard from './components/UpcomingTripsCard';
 import TravelHistoryCard from './components/TravelHistoryCard';
 import RecommendationsCard from './components/RecommendationsCard';
-import PreferencesCard from './components/PreferencesCard';
+import PreferencesCard from './components/PreferencesCard.jsx';
 import LoyaltyCard from './components/LoyaltyCard';
 import NotificationCenter from './components/NotificationCenter';
 import Icon from '../../components/AppIcon';
